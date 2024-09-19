@@ -236,3 +236,32 @@ resource "aws_iam_role_policy" "main" {
   role   = aws_iam_role.main.id
   policy = data.aws_iam_policy_document.policy.json
 }
+
+resource "aws_kms_key_policy" "example" {
+  key_id = var.aws_kms_key_id
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Id      = "allow-${local.vpc_name}-flow-log"
+    Statement = [
+      {
+        Effect = "Allow"
+        Action = [
+          "kms:Encrypt*",
+          "kms:Decrypt*",
+          "kms:ReEncrypt*",
+          "kms:GenerateDataKey*",
+          "kms:Describe*"
+        ]
+        Principal = {
+          Service = "logs.region.amazonaws.com"
+        }
+        Resource = "*"
+        Condition = {
+          ArnEquals = {
+            "kms:EncryptionContext:aws:logs:arn" : "arn:aws:logs:region:${data.aws_caller_identity.current.account_id}:log-group:${local.vpc_name}-logs"
+          }
+        }
+      },
+    ]
+  })
+}
