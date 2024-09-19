@@ -253,15 +253,15 @@ resource "aws_kms_key_policy" "main" {
           "kms:Describe*"
         ]
         Principal = {
-          Service = "logs.region.amazonaws.com"
+          Service = "logs.us-east-1.amazonaws.com"
         }
-        Resource = "*"
+        Resource = ["*"]
         Condition = {
           ArnEquals = {
-            "kms:EncryptionContext:aws:logs:arn" : "arn:aws:logs:region:${data.aws_caller_identity.current.account_id}:log-group:${local.vpc_name}-logs"
+            "kms:EncryptionContext:aws:logs:arn" : "arn:aws:logs:us-east-1:${data.aws_caller_identity.current.account_id}:log-group:${local.vpc_name}-logs"
           }
         }
-      },
+      }
     ]
   })
 }
