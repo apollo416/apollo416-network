@@ -237,7 +237,7 @@ resource "aws_iam_role_policy" "main" {
   policy = data.aws_iam_policy_document.policy.json
 }
 
-resource "aws_kms_key_policy" "example" {
+resource "aws_kms_key_policy" "main" {
   key_id = var.aws_kms_key_id
   policy = jsonencode({
     Version = "2012-10-17"
