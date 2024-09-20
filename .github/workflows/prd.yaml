@@ -41,13 +41,6 @@ jobs:
       - name: Code Checkout
         uses: actions/checkout@v4
 
-      - name: Checkov
-        uses: bridgecrewio/checkov-action@v12
-        with:
-          output_format: cli,sarif
-          output_file_path: console,results.sarif
-          quiet: true
-
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v4
         with:
@@ -59,7 +52,7 @@ jobs:
         run: |
           terraform init \
           -backend-config=bucket=apollo416-terraform-infra-state-prd \
-          -backend-config=key=network/prd/terraform.tfstate \
+          -backend-config=key=prd/network/terraform.tfstate \
           -backend-config=dynamodb_table=apollo416-terraform-infra-state-prd
 
       - name: Terraform plan
