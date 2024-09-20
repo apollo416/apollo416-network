@@ -13,11 +13,6 @@ variable "rev" {
   type        = string
 }
 
-variable "aws_kms_key_arn" {
-  description = "The ARN of the KMS key to use for encryption"
-  type        = string
-}
-
 variable "vpc_cidr" {
   description = "The CIDR block for the VPC"
   type        = string

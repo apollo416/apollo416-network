@@ -176,7 +176,7 @@ resource "aws_flow_log" "main" {
 resource "aws_cloudwatch_log_group" "main" {
   name              = "${local.vpc_name}-logs"
   retention_in_days = 365
-  kms_key_id        = var.aws_kms_key_arn
+  kms_key_id        = data.terraform_remote_state.account.outputs.kms_key_id
   tags = {
     Name = "${local.vpc_name}-vpc-logs"
     Env  = var.env
