@@ -1,2 +1,2 @@
-env = prd
-rev = main
+env = "prd"
+rev = "main"

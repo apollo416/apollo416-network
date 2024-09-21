@@ -1,2 +1,2 @@
-env = qa
-rev = main
+env = "qa"
+rev = "main"
