@@ -217,12 +217,10 @@ data "aws_iam_policy_document" "policy" {
       "logs:DescribeLogGroups",
       "logs:DescribeLogStreams",
     ]
-    resources = ["arn:aws:logs:us-east-1:${data.aws_caller_identity.current.account_id}:log-group:${local.vpc_name}-logs:*"]
-    condition {
-      test     = "StringEquals"
-      variable = "aws:SourceAccount"
-      values   = [data.aws_caller_identity.current.account_id]
-    }
+    resources = [
+      "arn:aws:logs:us-east-1:${data.aws_caller_identity.current.account_id}:log-group:*",
+      "arn:aws:logs:us-east-1:${data.aws_caller_identity.current.account_id}:log-group:${local.vpc_name}-logs:*"
+    ]
     condition {
       test     = "ArnLike"
       variable = "aws:SourceArn"
